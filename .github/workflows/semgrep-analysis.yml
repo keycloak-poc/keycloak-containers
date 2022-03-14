@@ -1,4 +1,4 @@
-name: semgrep
+name: Semgrep
 
 on:
 # Disable for push and pull_request until https://github.com/keycloak/keycloak/issues/10203 is resolved
@@ -22,10 +22,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Run semgrep
+      - name: Run Semgrep
         uses: returntocorp/semgrep-action@v1
         with:
           generateSarif: "1"
+        env:
+          SEMGREP_AGENT_DEBUG: 1 # https://github.com/returntocorp/semgrep-action/issues/429
+
       - name: Upload SARIF file to GitHub Advanced Security Dashboard
         uses: github/codeql-action/upload-sarif@v1
         with:
