@@ -24,7 +24,7 @@ jobs:
         with:
           generateSarif: "1"
           config: >-
-            p/auto
+            auto
         env:
           SEMGREP_TIMEOUT: 300
 
