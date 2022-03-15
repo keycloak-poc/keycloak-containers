@@ -25,6 +25,9 @@ jobs:
           generateSarif: "1"
           config: >-
             auto
+            p/ci
+            p/security-audit
+            p/secrets
         env:
           SEMGREP_TIMEOUT: 300
 
