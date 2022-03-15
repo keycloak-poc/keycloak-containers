@@ -16,8 +16,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    #continue-on-error: true # TODO: remove when semgrep fixed: https://github.com/returntocorp/semgrep-action/issues/429
-
     steps:
       - uses: actions/checkout@v2
 
@@ -25,11 +23,8 @@ jobs:
         uses: returntocorp/semgrep-action@v1
         with:
           generateSarif: "1"
-          config: >- # more at semgrep.dev/explore
-            p/security-audit
-            p/secrets
-            p/dockerfile
-            p/bash
+          config: >-
+            p/auto
         env:
           SEMGREP_TIMEOUT: 300
 
