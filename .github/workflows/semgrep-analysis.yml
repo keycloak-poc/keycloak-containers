@@ -29,6 +29,7 @@ jobs:
             p/security-audit
             p/secrets
             p/dockerfile
+            p/bash
         env:
           SEMGREP_TIMEOUT: 300
 
