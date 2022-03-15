@@ -28,6 +28,7 @@ jobs:
           config: >- # more at semgrep.dev/explore
             p/security-audit
             p/secrets
+            p/dockerfile
         env:
           SEMGREP_TIMEOUT: 300
 
