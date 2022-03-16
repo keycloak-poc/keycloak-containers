@@ -9,8 +9,8 @@ on:
     - cron: "0 8 * * 6"
 
 jobs:
-  trivy:
-    name: Trivy images vulnerability scanner
+  quarkus-dist:
+    name: Vulnerability scanner for Quarkus distribution images
     runs-on: "ubuntu-18.04"
     steps:
       - name: Run Trivy vulnerability scanner
@@ -27,3 +27,41 @@ jobs:
         uses: github/codeql-action/upload-sarif@v1
         with:
           sarif_file: 'trivy-results.sarif'
+
+  legacy-dist:
+    name: Vulnerability scanner for WildFly distribution images
+    runs-on: "ubuntu-18.04"
+    steps:
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'quay.io/keycloak/keycloak:legacy'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'legacy-results.sarif'
+          severity: 'MEDIUM,CRITICAL,HIGH'
+          ignore-unfixed: true
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: 'legacy-results.sarif'
+
+  keycloak-operator:
+    name: Vulnerability scanner for Keycloak Operator distribution images
+    runs-on: "ubuntu-18.04"
+    steps:
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'quay.io/keycloak/keycloak-operator:main'
+          format: 'template'
+          template: '@/contrib/sarif.tpl'
+          output: 'operator-results.sarif'
+          severity: 'MEDIUM,CRITICAL,HIGH'
+          ignore-unfixed: true
+
+      - name: Upload Trivy scan results to GitHub Security tab
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: 'operator-results.sarif'
